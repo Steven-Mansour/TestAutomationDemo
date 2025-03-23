@@ -15,6 +15,16 @@ def test_is_valid_email(email, expected):
     assert is_valid_email(email) == expected
 
 
+@pytest.mark.parametrize("email, expected", [
+    ("user@gmail.com", True),
+    ("user@@gmail.com", False),
+    ("user@outlook.com", True),
+    ("steven@gnail.com", False)
+])
+def test_valid_email(email, expected):
+    assert is_valid_email(email) == expected
+
+
 def test_empty_email():
     assert is_valid_email("") == False
 
