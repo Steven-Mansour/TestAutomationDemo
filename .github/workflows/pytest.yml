@@ -1,0 +1,25 @@
+name: Run Pytest on Push and PR
+
+on: [push, pull_request]  # Triggers on push and pull request events
+
+jobs:
+  test:
+    runs-on: ubuntu-latest  # Use the latest Ubuntu runner
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3  # Checks out your code
+
+      - name: Set Up Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: '3.9'  # Adjust Python version as needed
+
+      - name: Install Dependencies
+        run: |
+          pip install pytest
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+      - name: Run Pytest
+        run: pytest --maxfail=5 --disable-warnings
+
